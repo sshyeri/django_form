@@ -1,5 +1,7 @@
 from django import forms
 from .models import Board
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
 
 # class BoardForm(forms.Form):
 #     title = forms.CharField(label='제목', widget=forms.TextInput(attrs={
@@ -37,3 +39,9 @@ class BoardForm(forms.ModelForm):
                                         'required' : '내용 입력해주세요.'
                                      },
                         }
+    #crispy forms 문서에 들어가면 있어요
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'POST'
+        self.helper.add_input(Submit('submit', '작성!'))
