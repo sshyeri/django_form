@@ -5,6 +5,8 @@ app_name = 'boards'
 
 urlpatterns = [
     
+    path('<int:board_pk>/<int:comment_pk>/comment/', views.comment_delete, name='comment_delete'),
+    path('<int:board_pk>/comment/', views.comment_create, name='comment_create'),
     path('<int:board_pk>/edit/', views.update, name='update'),
     path('<int:board_pk>/delete/', views.delete, name='delete'),
     path('<int:board_pk>/', views.detail, name='detail'),

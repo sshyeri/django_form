@@ -7,30 +7,61 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Document</title>
+    <style>
+    /*    body {*/
+    /*        background-color : pink;*/
+    /*    }*/
+    /*</style>
 </head>
 <body>
-    <div class="container">
+    <!--<div class="div" style="position:absolute; right:0; top:0;">-->
+    <!--<marquee direction="up"  height="250" behavior="alternate">-->
+    <!--    <marquee behavior="alternate" >-->
+    <!--        <img src="https://media.giphy.com/media/Kebxw7tA8HgiileQFX/giphy.gif"></img>-->
+    <!--    </marquee>-->
+    <!--</marquee>-->
+    <!--</div>-->
+    
         <!--로그인이 되어 있으면-->
         {% if user.is_authenticated %}
-            <h1>
-                <img src="https://s.gravatar.com/avatar/{{ user.email | makemd5 }}?s=80&d=retro" alt="profile img">
-                안녕, {{ user.username }}
-                <a href="{% url 'accounts:edit' %}">회원수정</a>
-                <a href="{% url 'accounts:logout' %}">로그아웃</a>
-                <form action="{% url 'accounts:delete' %}" method="POST" style="display: inline" onsubmit="return confirm ('R U SURE?');">
-                    {% csrf_token %} 
-                    <input type="submit" value="회원탈퇴">
-                </form>
-            </h1>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <a class="navbar-brand" href="{% url 'accounts:profile' user.pk %}">
+                    <img src="https://s.gravatar.com/avatar/{{ user.email | makemd5 }}?s=30&d=retro" alt="profile img">
+                    <b>{{ user.username }}</b>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'accounts:logout' %}">로그아웃</a>
+                        </li>
+           
         {% else %}
-            <h1>
-                <a href="{% url 'accounts:login' %}">로그인</a>
-                <a href="{% url 'accounts:signup' %}">회원가입</a>
-            </h1>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                     <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'accounts:login' %}">로그인</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'accounts:signup' %}">회원가입</a>
+                        </li>
         {% endif %}
-        <hr>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'boards:index' %}">HOME</a></nav>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+    <div class="container">
         {% block body %}
         {% endblock %}
+    
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

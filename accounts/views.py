@@ -4,6 +4,7 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import update_session_auth_hash
 from .forms import UserCustomChangeForm, UserCustomCreationForm
+from django.contrib.auth.models import User
 
 # Create your views here.
 def signup(request):
@@ -69,4 +70,14 @@ def change_password(request):
         form = PasswordChangeForm(request.user)
     context = {'form': form, }
     return render(request, 'accounts/auth_form.html', context)
+    
+def profile(request, user_pk):
+    profile_user = User.objects.get(pk=user_pk)
+    boards = profile_user.board_set.all()
+    comments = profile_user.comment_set.all()
+    context = {'profile_user': profile_user,
+                'boards': boards,
+                'comments': comments,
+    }
+    return render(request, 'accounts/profile.html', context)
     
