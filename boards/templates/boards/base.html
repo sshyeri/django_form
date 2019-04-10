@@ -1,3 +1,4 @@
+{% load gravatar %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +13,7 @@
         <!--로그인이 되어 있으면-->
         {% if user.is_authenticated %}
             <h1>
+                <img src="https://s.gravatar.com/avatar/{{ user.email | makemd5 }}?s=80&d=retro" alt="profile img">
                 안녕, {{ user.username }}
                 <a href="{% url 'accounts:edit' %}">회원수정</a>
                 <a href="{% url 'accounts:logout' %}">로그아웃</a>
